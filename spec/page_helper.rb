@@ -12,13 +12,11 @@ def firefox_options
   options[:http_client] = http_client
   options
 end
-
-Capybara.register_driver :firefox do |app|
-  Capybara::Selenium::Driver.new(app, firefox_options)
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
+Capybara.default_driver = :selenium_chrome
 
-Capybara.current_driver = :firefox
-Capybara.default_driver = :firefox
 
 Dir.glob(File.join(File.expand_path("../../pages", __FILE__), "**", "*.rb")).each do |page_class|
   require page_class
